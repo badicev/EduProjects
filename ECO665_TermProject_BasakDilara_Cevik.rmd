@@ -1,0 +1,115 @@
+---
+title: "Testing the Adaptive Market Hypothesis: Turkey Stock Market"
+author: "Başak Dilara Çevik"
+date: "May 16, 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+    
+
+## Steps of Term Project
+
+- **Topic**: A test of adaptive market hypothesis via `time-varying AR`model
+
+- **Data**.
+```{r} 
+library(lubridate)
+
+library(quantmod)
+
+getSymbols("XU100.IS", return.class="ts", from="1997-07-01", to="2021-05-01")
+
+head(XU100.IS)
+
+XU100<-XU100.IS
+str(XU100.IS)
+summary(XU100.IS)
+#close has 223 NA's. NAs are almost 3% of total data. we can't use na.omit()
+plot(XU100.IS)
+# There is not a strong trend in time series. spline interpolation will be better than linear interpolation.
+XU <- na.spline(XU100.IS)
+str(XU)
+summary(XU)
+
+library(tvReg)
+
+class(XU)
+
+y <- as.vector(XU)
+             
+head(y)
+ 
+class(y)
+
+
+
+
+library(lattice)
+library(latticeExtra)
+
+
+>lrtn=diff(log(prices))
+
+
+
+```
+
+
+
+
+
+
+- **Introduce the T.S. Model for your project.**   
+
+- **Fit the model using appropriate `package`.**  
+```{r} 
+library(tvReg)
+```
+
+- **Assess the Results under the topic Results**.  
+
+- **Clearly discuss the findings under Conclusion** section.    
+
+- **List the References**  
+
+## Term Project Sections
+
+## Introduction  
+
+The aim of the project and the research idea must be introduced. In addition, a brief Literature Survey must be given here about the research question.   
+The efficient market hypothesis (EMH) is a hypothesis attributed to two different studies of Samuelson (1965) and Fama (1970) that states market prices reflect all available information completely, therefore the market is efficient. Fama (1970) categorized the empirical tests of efficiency into three forms; weak, semi-strong and strong. Market efficiency has been a subject for discussion in literature for a long time. After 30 years, Lo (2004) suggested alternative market hypothesis (AMH) as an alternative theory based on an evolutionary approach, also a great contribution to the behavioral finance field. AMH’s main aim is to take the “bounded rationality” concept into the market efficiency equation. While EMH implies stability of market efficiency, AMH implies dynamic efficiency of markets due to changing market conditions such as crises, financial bubbles. Unlike EMH, AMH indicates market transition through time from efficient period to inefficient period, or vice versa is possible. That implies time-varying market efficiency by providing a basis for this term project. The aim of this project is to examine AMH in the Borsa Istanbul Turkey stock market by using The Borsa Istanbul 100 Index (BIST100/XU100) and adopting a time-varying (TV) autoregressive (AR) model. It is expected to provide further evidence for AMH and explaining the evolution of market efficiency by measuring the degree of stock market efficiency for Turkey.
+
+## Data
+
+ 
+Data section should include brief description of the variables together with their behaviours and figures related with T.S. Once first step of the exploratory data analysis is finished, the necessary data transformation, aggregation, disaggregation, outlier treatment, missing value treatment etc. must be performed in this section ant these new variables should be introduced clearly.  
+
+## Time-Varying Autoregressive Model
+Time-varying coefficients model is:
+
+$$ y_t  = \phi_{1t} y_{t-1}+ \phi_{2t} y_{t-2}+ \phi_{pt} y_{t-p} + a_t $$
+ where $$ a_t ∼ N(0,\sigma^2) $$ is white noise.
+
+In ordinary time series analysis,ϕ's assumed to be constant while in a time-varying approach it is supposed that coefficients of AR models vary over time.In ordinary AR models t component of coefficients don't exist.
+
+
+
+In this section, the time series model that is applied to answer the research question must be introduced. The relevant packages and functions should alse be listed in this section.  
+
+## Results  
+
+Model results should be given here as tables, figures and explanation of every tables/figures. 
+
+## Conclusion  
+
+Conclusion section must include a very brief findings you obtained for this project. 
+
+## References
+
+List of all relevant references and internet sources should be given in this section. 
+Fama, E., (1970), “Efficient Capital Markets: A Review of Theory and Empirical Work”, The Journal of Finance, 25(2), 383-417. Lo, A. W., (2004), “The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective”, Journal of Portfolio Management. Samuelson, P. A., (1965), ”Rational Theory of Warrant Pricing”. Industrial Management Review 6 (2): 13 39.
+
