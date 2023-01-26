@@ -1,1 +1,1 @@
-# PersonalProjects
+# EduProjects
